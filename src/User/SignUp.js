@@ -2,11 +2,10 @@ import React, { useState } from "react";
 
 function Signup() {
   const [userId, setUserId] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [confirmPwd, setConfirmPwd] = useState("");
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [userPasswordConfirm, setUserPasswordConfirm] = useState(""); // 패스워드 확인
+  const [userName, setUserName] = useState("");
+  const [userNickName, setUserNickName] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -122,9 +121,9 @@ function Signup() {
           }}
         >
           <h3 style={{ textAlign: "center" }}>::: 회원가입 :::</h3>
-          
+
           {/* 아이디 */}
-          <div style={{ marginBottom: "15px" }}>
+          <div style={{ marginBottom: "15px", marginRight: "18px" }}>
             <label htmlFor="userId" style={{ display: "block", marginBottom: "5px" }}>
               아이디
             </label>
@@ -134,7 +133,7 @@ function Signup() {
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
               style={{
-                width: "382px",
+                width: "100%",
                 padding: "8px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
@@ -156,17 +155,17 @@ function Signup() {
           </div>
 
           {/* 이름 */}
-          <div style={{ marginBottom: "15px" }}>
+          <div style={{ marginBottom: "15px", marginRight: "18px" }}>
             <label htmlFor="name" style={{ display: "block", marginBottom: "5px" }}>
               이름
             </label>
             <input
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              id="userName"
+              name="userName"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               style={{
-                width: "382px",
+                width: "100%",
                 padding: "8px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
@@ -175,37 +174,17 @@ function Signup() {
           </div>
 
           {/* 닉네임 */}
-          <div style={{ marginBottom: "15px" }}>
-            <label htmlFor="nickname" style={{ display: "block", marginBottom: "5px" }}>
+          <div style={{ marginBottom: "15px", marginRight: "18px" }}>
+            <label htmlFor="userNickName" style={{ display: "block", marginBottom: "5px" }}>
               닉네임
             </label>
             <input
-              id="nickname"
-              name="nickname"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              id="userNickName"
+              name="userNickName"
+              value={userNickName}
+              onChange={(e) => setUserNickName(e.target.value)}
               style={{
-                width: "382px",
-                padding: "8px",
-                borderRadius: "4px",
-                border: "1px solid #ddd",
-              }}
-            />
-          </div>
-
-          {/* 이메일 */}
-          <div style={{ marginBottom: "15px" }}>
-            <label htmlFor="email" style={{ display: "block", marginBottom: "5px" }}>
-              이메일
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{
-                width: "382px",
+                width: "100%",
                 padding: "8px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
@@ -214,18 +193,18 @@ function Signup() {
           </div>
 
           {/* 비밀번호 */}
-          <div style={{ marginBottom: "15px" }}>
-            <label htmlFor="pwd" style={{ display: "block", marginBottom: "5px" }}>
+          <div style={{ marginBottom: "15px", marginRight: "18px" }}>
+            <label htmlFor="userPassword" style={{ display: "block", marginBottom: "5px" }}>
               비밀번호
             </label>
             <input
-              id="pwd"
-              name="pwd"
+              id="userPassword"
+              name="userPassword"
               type="password"
-              value={pwd}
-              onChange={(e) => setPwd(e.target.value)}
+              value={userPassword}
+              onChange={(e) => setUserPassword(e.target.value)}
               style={{
-                width: "382px",
+                width: "100%",
                 padding: "8px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
@@ -234,18 +213,18 @@ function Signup() {
           </div>
 
           {/* 비밀번호 확인 */}
-          <div style={{ marginBottom: "15px" }}>
-            <label htmlFor="confirmPwd" style={{ display: "block", marginBottom: "5px" }}>
+          <div style={{ marginBottom: "15px", marginRight: "18px" }}>
+            <label htmlFor="userPasswordConfirm" style={{ display: "block", marginBottom: "5px" }}>
               비밀번호 확인
             </label>
             <input
-              id="confirmPwd"
-              name="confirmPwd"
+              id="userPasswordConfirm"
+              name="userPasswordConfirm"
               type="password"
-              value={confirmPwd}
-              onChange={(e) => setConfirmPwd(e.target.value)}
+              value={userPasswordConfirm}
+              onChange={(e) => setUserPasswordConfirm(e.target.value)}
               style={{
-                width: "382px",
+                width: "100%",
                 padding: "8px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
@@ -290,7 +269,9 @@ function Signup() {
         <div
           style={{
             width: "25%",
-            height: "50%",
+            height: "auto", // 높이를 자동으로 조정
+            maxWidth: "400px", // 최대 너비 제한
+            aspectRatio: "1 / 1", // 정사각형 비율 유지
             border: "1px solid #ddd",
             display: "flex",
             justifyContent: "center",
