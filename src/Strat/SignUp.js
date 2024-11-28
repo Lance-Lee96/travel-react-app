@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const { user, setUser } = useContext(UserContext);
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [userPasswordConfirm, setUserPasswordConfirm] = useState(""); // 패스워드 확인
+  const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
   const [userName, setUserName] = useState("");
   const [userNickName, setUserNickName] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // 폼 제출 로직 (예: API 호출) 추가
+
+    if (userPassword !== userPasswordConfirm) {
+      alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+      return;
+    }
+
+    const newUser = {
+      id: userId,
+      password: userPassword,
+      name: userName,
+      nickname: userNickName,
+    };
+
+    setUser((prev) => [...prev, newUser]);
+
+    alert("회원가입이 완료되었습니다.");
+    console.log("등록된 사용자:", user);
+    navigate("/Login");
   };
 
   return (
@@ -250,7 +272,7 @@ function Signup() {
             <input
               type="button"
               value="취소"
-              onClick={() => window.location.href = "/"}
+              onClick={() => navigate("/")}
               style={{
                 padding: "10px 20px",
                 backgroundColor: "#008CBA",

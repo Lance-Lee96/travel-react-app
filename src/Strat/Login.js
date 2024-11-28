@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { user } = useContext(UserContext); // `user` 배열로부터 사용자 정보를 가져옴
+  const [loginId, setLoginId] = useState(""); // 로그인 ID 상태
+  const [loginPassword, setLoginPassword] = useState(""); // 로그인 비밀번호 상태
+  const navigate = useNavigate();
+
   const toSignup = () => {
-    window.location.href = "/signup";
+    navigate('/Signup')
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    // 입력한 ID와 비밀번호를 기준으로 사용자 검색
+    const matchedUser = user.find(
+      (u) => u.id === loginId && u.password === loginPassword
+    );
+
+    if (matchedUser) {
+      alert(`로그인 성공! 환영합니다, ${matchedUser.nickname}님!`);
+      navigate("/main");
+    } else {
+      alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+    }
   };
 
   return (
@@ -89,55 +113,58 @@ const Login = () => {
       </header>
 
       {/* Main Content */}
-      <main //페이지의 다른 부분(헤더, 네비게이션, 푸터 등)과 구분
+      <main
         style={{
           display: "flex",
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
           padding: "20px",
-          gap: "20px", // 간격 설정
+          gap: "20px",
         }}
       >
         {/* Login Form */}
         <form
+          onSubmit={handleLogin}
           style={{
             width: "35%",
             maxWidth: "400px",
-            minWidth: "300px", // 최소 크기 설정
+            minWidth: "300px",
             border: "1px solid #ddd",
             borderRadius: "8px",
             padding: "20px",
             boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-            margin: "0 10px", // 양옆 여백 추가
+            margin: "0 10px",
           }}
         >
           <h3 style={{ textAlign: "center" }}>::: 로그인 :::</h3>
           <div style={{ marginBottom: "15px", marginRight: "18px" }}>
-            <label htmlFor="userId" style={{ display: "block", marginBottom: "5px" }}> 
-              {/* for 속성은 라벨(label)과 결합될 요소를 명시 
-              react는 JSX를 사용하고 자바스크립트의 루프문 예약어 for와 겹치기 때문에 htmlFor로 사용한다.*/}
+            <label htmlFor="loginId" style={{ display: "block", marginBottom: "5px" }}>
               아이디
             </label>
             <input
-              id="userId"
-              name="userId"
+              id="loginId"
+              name="loginId"
+              value={loginId}
+              onChange={(e) => setLoginId(e.target.value)}
               style={{
-                width: "100%", 
+                width: "100%",
                 padding: "8px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
               }}
             />
           </div>
-          <div style={{ marginBottom: "15px", marginRight: "18px"}}>
-            <label htmlFor="userPassword" style={{ display: "block", marginBottom: "5px" }}>
+          <div style={{ marginBottom: "15px", marginRight: "18px" }}>
+            <label htmlFor="loginPassword" style={{ display: "block", marginBottom: "5px" }}>
               비밀번호
             </label>
             <input
-              id="userPassword"
-              name="userPassword"
+              id="loginPassword"
+              name="loginPassword"
               type="password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
               style={{
                 width: "100%",
                 padding: "8px",
@@ -152,13 +179,13 @@ const Login = () => {
               value="로그인"
               style={{
                 padding: "10px 20px",
-                marginBottom: "10px", // 로그인 버튼과 회원가입 버튼 간격 추가
+                marginBottom: "10px",
                 backgroundColor: "#4CAF50",
                 color: "white",
                 border: "none",
                 borderRadius: "4px",
-                cursor: "pointer", //사용자가 마우스 커서를 해당 요소 위에 올렸을 때 손가락 모양의 커서로 변경되게 하는 역할, 클릭 가능한 영역임을 시각적으로 표시함
-                width: "100%", // 버튼 너비를 100%로 설정하여 입력란과 동일하게 맞추기, 하지만 잘 맞춰지지 않아서 일단 px 로 맞춤
+                cursor: "pointer",
+                width: "100%",
               }}
             />
             <input
@@ -172,53 +199,9 @@ const Login = () => {
                 border: "none",
                 borderRadius: "4px",
                 cursor: "pointer",
-                width: "100%", // 버튼 너비를 100%로 설정하여 입력란과 동일하게 맞추기
+                width: "100%",
               }}
             />
-          </div>
-          <div style={{ textAlign: "center", marginTop: "10px" }}>
-            <p>구글/카카오/네이버 연동</p>
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                구글
-              </div>
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                카카오
-              </div>
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                네이버
-              </div>
-            </div>
           </div>
         </form>
 
@@ -226,9 +209,9 @@ const Login = () => {
         <div
           style={{
             width: "25%",
-            height: "auto", // 높이를 자동으로 조정
-            maxWidth: "400px", // 최대 너비 제한
-            aspectRatio: "1 / 1", // 정사각형 비율 유지
+            height: "auto",
+            maxWidth: "400px",
+            aspectRatio: "1 / 1",
             border: "1px solid #ddd",
             display: "flex",
             justifyContent: "center",
